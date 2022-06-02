@@ -1,0 +1,48 @@
+ #include <bits/stdc++.h>
+#include <algorithm>
+using namespace std;
+#define ll long long
+unsigned int gcd(unsigned int u, unsigned int v) {
+  int shift;
+  if (u == 0)
+    return v;
+  if (v == 0)
+    return u;
+  shift = __builtin_ctz(u | v);
+  u >>= __builtin_ctz(u);
+  do {
+    unsigned m;
+    v >>= __builtin_ctz(v);
+    v -= u;
+    m = (int)v >> 31;
+    u += v & m;
+    v = (v + m) ^ m;
+  } while (v != 0);
+  return u << shift;
+}
+void solve(){
+    ll n; 
+    cin>>n;
+        ll l, r; 
+        for(ll i = 1; i*i<=n; i++){
+            ll p=n/i;
+            if(n%i == 0 && gcd(i, p) == 1){
+                l = i, r = p;
+            }
+        } 
+        cout<<l<<" "<<r<<"\n";  
+}
+int main() {
+
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    
+        solve();
+    return 0;
+}
